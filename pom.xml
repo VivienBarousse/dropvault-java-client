@@ -6,7 +6,7 @@
     <groupId>com.aperigeek.dropvault</groupId>
     <artifactId>dropvault-client-java</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>dropvault-client-java</name>
+    <name>dropvault-java-client</name>
     <url>http://maven.apache.org</url>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
