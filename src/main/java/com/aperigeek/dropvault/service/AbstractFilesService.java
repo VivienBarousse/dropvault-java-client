@@ -249,7 +249,24 @@ public abstract class AbstractFilesService implements FilesService {
     
     protected abstract String getBaseURI();
     
-    protected abstract void setBaseURI(String baseUri);
+    protected void setBaseURI(String baseUri) {
+        String oldUri = getBaseURI();
+        storeBaseURI(baseUri);
+        
+        baseURIChanged(oldUri, baseUri);
+    }
+    
+    protected abstract void storeBaseURI(String baseUri);
+    
+    protected void baseURIChanged(String oldUri, String newUri) {
+        List<Resource> resources = dao.getAllResources();
+        for (Resource resource : resources) {
+            dao.remove(resource);
+            String newHref = resource.getHref().replace(oldUri, newUri);
+            resource.setHref(newHref);
+            dao.insert(resource);
+        }
+    }
 
     public String getPassword() {
         return password;
