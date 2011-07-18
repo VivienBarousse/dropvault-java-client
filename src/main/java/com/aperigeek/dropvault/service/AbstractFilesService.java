@@ -170,6 +170,8 @@ public abstract class AbstractFilesService implements FilesService {
         for (File createdFile : created) {
             String href = dbFolder.getHref() + "/" + createdFile.getName();
             if (createdFile.isDirectory()) {
+                // TODO: Catch 405 errors, directory already exists on remote
+                // end, this shouldn't be fatal
                 client.mkcol(href);
             } else {
                 client.put(href, createdFile);
