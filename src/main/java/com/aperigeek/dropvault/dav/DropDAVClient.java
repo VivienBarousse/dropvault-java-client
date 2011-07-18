@@ -34,7 +34,7 @@ import org.apache.http.client.methods.HttpGet;
  */
 public class DropDAVClient extends DAVClient {
     
-    public static final String LOGIN_URL = "http://thom.aperigeek.com:8080/dropvault/rs/login?username={0}&password={1}";
+    public static final String LOGIN_URL = "http://dav.dropvault.aperigeek.com/rs/login?username={0}&password={1}";
     
     private String username;
     
