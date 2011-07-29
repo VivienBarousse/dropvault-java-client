@@ -156,7 +156,9 @@ public class DAVClient {
             
             HttpResponse response = client.execute(mkcol);
             response.getEntity().consumeContent();
-            if (response.getStatusLine().getStatusCode() != 201) {
+            if (response.getStatusLine().getStatusCode() == 405) {
+                throw new ResourceAlreadyExistsException();
+            } else if (response.getStatusLine().getStatusCode() != 201) {
                 throw new DAVException("Invalid status code:"
                         + response.getStatusLine().getStatusCode()
                         + " " 
