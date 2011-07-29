@@ -267,7 +267,7 @@ public abstract class AbstractFilesService implements FilesService {
         String oldUri = getBaseURI();
         storeBaseURI(baseUri);
         
-        if (!oldUri.equals(baseUri)) {
+        if (!baseUri.equals(oldUri)) {
             baseURIChanged(oldUri, baseUri);
         }
     }
