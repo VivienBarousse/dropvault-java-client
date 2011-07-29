@@ -171,7 +171,12 @@ public abstract class AbstractFilesService implements FilesService {
         
         for (File createdFile : created) {
             String encodedName = URLEncoder.encode(createdFile.getName(), "UTF-8");
+            
+            // + in URLs are allowed only in the query string, not in the path
+            // URLEncoder.encode encodes spaces using +, which is incorrect
+            // plusses are converted back to %20
             encodedName = encodedName.replace("+", "%20");
+            
             String href = dbFolder.getHref() + "/" + encodedName;
             if (createdFile.isDirectory()) {
                 try {
