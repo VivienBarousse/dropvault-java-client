@@ -20,6 +20,7 @@ import com.aperigeek.dropvault.Resource;
 import com.aperigeek.dropvault.dao.FilesDAO;
 import com.aperigeek.dropvault.dav.DAVException;
 import com.aperigeek.dropvault.dav.DropDAVClient;
+import com.aperigeek.dropvault.dav.ResourceAlreadyExistsException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -170,9 +171,11 @@ public abstract class AbstractFilesService implements FilesService {
         for (File createdFile : created) {
             String href = dbFolder.getHref() + "/" + createdFile.getName();
             if (createdFile.isDirectory()) {
-                // TODO: Catch 405 errors, directory already exists on remote
-                // end, this shouldn't be fatal
-                client.mkcol(href);
+                try {
+                    client.mkcol(href);
+                } catch (ResourceAlreadyExistsException ex) {
+                    // OK, folder already exists, not a problem
+                }
             } else {
                 client.put(href, createdFile);
             }
