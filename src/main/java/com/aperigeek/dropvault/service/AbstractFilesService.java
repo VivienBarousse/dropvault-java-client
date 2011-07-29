@@ -175,6 +175,7 @@ public abstract class AbstractFilesService implements FilesService {
                     client.mkcol(href);
                 } catch (ResourceAlreadyExistsException ex) {
                     // OK, folder already exists, not a problem
+                    // TODO: need to check if remote end is a folder as well
                 }
             } else {
                 client.put(href, createdFile);
