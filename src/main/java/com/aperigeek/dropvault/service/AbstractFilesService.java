@@ -26,7 +26,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -170,8 +169,7 @@ public abstract class AbstractFilesService implements FilesService {
         }
         
         for (File createdFile : created) {
-            String href = dbFolder.getHref() + "/" + 
-                    URLEncoder.encode(createdFile.getName(), "UTF-8");
+            String href = dbFolder.getHref() + "/" + createdFile.getName();
             if (createdFile.isDirectory()) {
                 try {
                     client.mkcol(href);
