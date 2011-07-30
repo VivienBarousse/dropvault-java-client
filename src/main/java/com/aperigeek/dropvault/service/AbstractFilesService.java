@@ -76,11 +76,14 @@ public abstract class AbstractFilesService implements FilesService {
     }
     
     public void importFile(InputStream in, String mimeType, String name) throws IOException {
+        String encodedName = URLEncoder.encode(name, "UTF-8");
+        encodedName = encodedName.replace("+", "%20");
+        
         Resource resource = new Resource();
         resource.setName(name);
         resource.setType(Resource.ResourceType.FILE);
         resource.setContentType(mimeType);
-        resource.setHref(getRoot().getHref() + "/" + name);
+        resource.setHref(getRoot().getHref() + "/" + encodedName);
         resource.setLastModificationDate(new Date());
         resource.setCreated(true);
         dao.insert(getRoot(), resource);
